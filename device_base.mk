@@ -135,15 +135,23 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
        wifi.supplicant_scan_interval=20 \
+       ro.telephony.ril_class=samsung \
        ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
-       dalvik.vm.heapsize=48m
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.com.google.locationfeatures=1 \
-        ro.com.google.networklocation=1
+        ro.com.google.networklocation=1 \
+	ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
+	ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
+	ro.com.google.clientidbase=android-google \
+	ro.com.android.wifi-watchlist=GoogleGuest \
+	ro.setupwizard.enterprise_mode=1 \
+	ro.ril.enable.managed.roaming=1 \
+	ro.ril.oem.nosim.ecclist=911,112,999,000,08,118,120,122,110,119,995 \
+	ro.ril.emc.mode=2	
 
 # Extended JNI checks
 # The extended JNI checks will cause the system to run more slowly, but they can spot a variety of nasty bugs 
@@ -151,8 +159,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Default=true for development builds, set by android buildsystem.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
-    dalvik.vm.checkjni=false
-    persist.sys.vold.switchexternal=1
+    dalvik.vm.checkjni=false \
+    dalvik.vm.heapsize=48m
+#    dalvik.vm.heapstartsize=5m \
+#    dalvik.vm.heapgrowthlimit=48m \
+#    dalvik.vm.lockprof.threshold=500
+#    persist.sys.vold.switchexternal=1
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -165,7 +177,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # the the build-time selection of resources). The product definitions including
 # this file must pay attention to the fact that the first entry in the final
 # PRODUCT_LOCALES expansion must not be a density.
-PRODUCT_LOCALES := hdpi
+PRODUCT_LOCALES := en
 
 PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/updater.sh:updater.sh
