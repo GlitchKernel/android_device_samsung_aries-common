@@ -55,8 +55,6 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aries-common/ueventd.aries.rc:root/ueventd.aries.rc \
 	device/samsung/aries-common/setupdatadata.sh:root/sbin/setupdatadata.sh
 
-#       device/samsung/aries-common/setupenv.sh:recovery/root/sbin/setupenv.sh \
-
 
 # Prebuilt kl keymaps
 PRODUCT_COPY_FILES += \

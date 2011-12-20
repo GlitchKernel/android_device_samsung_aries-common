@@ -94,6 +94,9 @@ on post-fs-data
     # setup datadata
     exec /sbin/setupdatadata.sh
 
+    # run sysinit
+    exec /system/bin/sysinit
+
     # create data/gps for GPS demon
     mkdir /data/gps 700 gps system
     chown gps system /data/gps
