@@ -47,13 +47,14 @@ PRODUCT_COPY_FILES := \
 
 # Init files
 PRODUCT_COPY_FILES += \
-	device/samsung/aries-common/init.rc:root/init.rc \
 	device/samsung/aries-common/init.aries.rc:root/init.aries.rc \
+	device/samsung/aries-common/init.rc:root/init.rc \
 	device/samsung/aries-common/init.aries.usb.rc:root/init.aries.usb.rc \
 	device/samsung/aries-common/init.aries.usb.rc:recovery/root/usb.rc \
 	device/samsung/aries-common/lpm.rc:root/lpm.rc \
 	device/samsung/aries-common/ueventd.aries.rc:root/ueventd.aries.rc \
-	device/samsung/aries-common/setupdatadata.sh:root/sbin/setupdatadata.sh
+	device/samsung/aries-common/setupdatadata.sh:root/sbin/setupdatadata.sh \
+	bootable/recovery/nandroid-md5.sh:recovery/root/sbin/nandroid-md5.sh
 
 
 # Prebuilt kl keymaps
@@ -136,7 +137,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
        wifi.supplicant_scan_interval=20 \
        ro.telephony.ril_class=samsung \
        ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
-       mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
+       mobiledata.interfaces=pdp0,eth0,gprs,ppp0
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -159,15 +160,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false \
-    dalvik.vm.heapsize=48m
-#    dalvik.vm.heapstartsize=5m \
-#    dalvik.vm.heapgrowthlimit=48m \
-#    dalvik.vm.lockprof.threshold=500
-#    persist.sys.vold.switchexternal=1
+    ro.vold.umsdirtyratio=20 \
+    dalvik.vm.heapsize=128m \
+    dalvik.vm.heapstartsize=5m \
+    dalvik.vm.heapgrowthlimit=48m
+
+# Override /proc/sys/vm/dirty_ratio on UMS
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vold.umsdirtyratio=20
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
+
+# disable usb debugging notif
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.adb.notify=0
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
